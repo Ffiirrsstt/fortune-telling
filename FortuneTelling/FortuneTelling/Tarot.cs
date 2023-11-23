@@ -113,43 +113,31 @@ namespace FortuneTelling
                 ได้ 30.5 = 30 (ปัดเศษลง เนื่องจากหาก n = 31 จะได้พิกัด X เป็นติดลบ)
                 ดังนั้นมีทั้งหมด 31 ใบ ตั้งแต่ 0,1,2,3,...,30
                  */
-                if(n<=30)
+                if(n<=25)
                 { 
-                    X = 1230 - (40 * (n));
-                    AddData(TarotData, n, new string[] { X.ToString(), "750" });
+                    X = 925 - (37 * (n));
+                    AddData(TarotData, n, new string[] { X.ToString(), "615" });
                 }
-                else if(n<=61) //จำนวนแถวที่สองเป็นจำนวน 31 ใบ ตั้งแต่ 31 ถึง 61
+                else if(n<=51) //จำนวนแถวที่สองเป็นจำนวน 31 ใบ ตั้งแต่ 31 ถึง 61
                 {
-                    nNew = (n-1) % 30; //แถวที่สอง
+                    nNew = n % 26; //แถวที่สอง
                     /*ตามสมการที่คำนวณเอาไว้ 1230 - 40n เมื่อ n = 0,1,2,3,...,30
                      ดังนั้นจึงต้องทำให้ n ในที่นี้กลายเป็น n ตามสมการ*/
-                    X = 1230 - (40 * (nNew));
-                    AddData(TarotData, n, new string[] { X.ToString(), "500" });
+                    X = 925 - (37 * (nNew));
+                    AddData(TarotData, n, new string[] { X.ToString(), "453" });
                 }
                  //77-61 = 16 ใบ
-                 else if(n<=65)
+                 else if(n<=74)
                 {
-                    nNew = (n - 1) % 61; //4 ใบ ทำชิดฝั่งขวามือ
-                    X = 1230 - (40 * (nNew));
-                    AddData(TarotData, n, new string[] { X.ToString(), "250" });
-                }
-                else if (n <= 69)
-                {
-                    nNew = (30 - n) % 65; //4 ใบ ทำชิดฝั่งซ้ายมือ
-                    X = 1230 - (40 * (nNew));
-                    AddData(TarotData, n, new string[] { X.ToString(), "250" });
-                }
-                else if (n <= 73)
-                {
-                    nNew = (n - 1) % 61; //4 ใบ ทำชิดฝั่งขวามือ
-                    X = 1230 - (40 * (nNew));
-                    AddData(TarotData, n, new string[] { X.ToString(), "10" });
+                    nNew = n % 52; //4 ใบ ทำชิดฝั่งขวามือ
+                    X = 925 - (37 * (nNew));
+                    AddData(TarotData, n, new string[] { X.ToString(), "291" });
                 }
                 else
                 {
-                    nNew = (30 - n) % 73; //4 ใบ ทำชิดฝั่งซ้ายมือ
-                    X = 1230 - (40 * (nNew));
-                    AddData(TarotData, n, new string[] { X.ToString(), "10" });
+                    nNew = n % 74; //4 ใบ ทำชิดฝั่งขวามือ
+                    X =  111 - (37 * (nNew));
+                    AddData(TarotData, n, new string[] { X.ToString(), "291" });
                 }
             }
         }

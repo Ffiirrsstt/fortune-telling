@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -66,7 +67,6 @@ namespace FortuneTelling
     private void tabPage2_Click(object sender, EventArgs e)
         {
 
-
         }
 
         private void alertforMe(object sender, EventArgs e)
@@ -98,6 +98,46 @@ namespace FortuneTelling
             catch
             {
                 Message.messageError();
+            }
+        }
+
+        private void pictureBox79_Click(object sender, EventArgs e)
+        {
+            if (sender is PictureBox pictureBox)
+            {
+                MessageBox.Show(pictureBox.Location.ToString());
+            }
+        }
+
+        private void pictureBox84_Click(object sender, EventArgs e)
+        {
+            if (sender is PictureBox pictureBox)
+            {
+                MessageBox.Show(pictureBox.Location.ToString());
+            }
+        }
+
+        private void pictureBox82_Click(object sender, EventArgs e)
+        {
+            if (sender is PictureBox pictureBox)
+            {
+                MessageBox.Show(pictureBox.Location.ToString());
+            }
+        }
+
+        private void pictureBox83_Click(object sender, EventArgs e)
+        {
+            if (sender is PictureBox pictureBox)
+            {
+                MessageBox.Show(pictureBox.Location.ToString());
+            }
+        }
+
+        private void pictureBox80_Click(object sender, EventArgs e)
+        {
+            if (sender is PictureBox pictureBox)
+            {
+                MessageBox.Show(pictureBox.Location.ToString());
             }
         }
     }

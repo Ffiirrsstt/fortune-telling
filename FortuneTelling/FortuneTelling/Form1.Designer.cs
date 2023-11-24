@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.TimerStartProgram = new System.Windows.Forms.Timer(this.components);
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnPassShuffle = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox78 = new System.Windows.Forms.PictureBox();
             this.pictureBox77 = new System.Windows.Forms.PictureBox();
@@ -110,7 +111,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.speedX3 = new System.Windows.Forms.Button();
+            this.speedX4 = new System.Windows.Forms.Button();
             this.speedX1 = new System.Windows.Forms.Button();
             this.background = new System.Windows.Forms.TabPage();
             this.button3 = new System.Windows.Forms.Button();
@@ -219,6 +220,7 @@
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Transparent;
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage2.Controls.Add(this.btnPassShuffle);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.pictureBox78);
             this.tabPage2.Controls.Add(this.pictureBox77);
@@ -298,7 +300,7 @@
             this.tabPage2.Controls.Add(this.pictureBox3);
             this.tabPage2.Controls.Add(this.pictureBox2);
             this.tabPage2.Controls.Add(this.pictureBox1);
-            this.tabPage2.Controls.Add(this.speedX3);
+            this.tabPage2.Controls.Add(this.speedX4);
             this.tabPage2.Controls.Add(this.speedX1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
@@ -306,6 +308,18 @@
             this.tabPage2.Size = new System.Drawing.Size(1361, 968);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
+            // 
+            // btnPassShuffle
+            // 
+            this.btnPassShuffle.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPassShuffle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnPassShuffle.Location = new System.Drawing.Point(92, 892);
+            this.btnPassShuffle.Name = "btnPassShuffle";
+            this.btnPassShuffle.Size = new System.Drawing.Size(173, 61);
+            this.btnPassShuffle.TabIndex = 81;
+            this.btnPassShuffle.Text = "PASS";
+            this.btnPassShuffle.UseVisualStyleBackColor = true;
+            this.btnPassShuffle.Click += new System.EventHandler(this.btnPassShuffle_Click);
             // 
             // label2
             // 
@@ -1098,25 +1112,28 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // speedX3
+            // speedX4
             // 
-            this.speedX3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.speedX3.Location = new System.Drawing.Point(16, 884);
-            this.speedX3.Name = "speedX3";
-            this.speedX3.Size = new System.Drawing.Size(181, 69);
-            this.speedX3.TabIndex = 79;
-            this.speedX3.Text = "Speed X4";
-            this.speedX3.UseVisualStyleBackColor = true;
-            this.speedX3.Click += new System.EventHandler(this.speedShuffleX4);
+            this.speedX4.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.speedX4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.speedX4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.speedX4.Location = new System.Drawing.Point(16, 892);
+            this.speedX4.Name = "speedX4";
+            this.speedX4.Size = new System.Drawing.Size(70, 61);
+            this.speedX4.TabIndex = 79;
+            this.speedX4.Text = "X4";
+            this.speedX4.UseVisualStyleBackColor = true;
+            this.speedX4.Click += new System.EventHandler(this.speedShuffleX4);
             // 
             // speedX1
             // 
+            this.speedX1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.speedX1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.speedX1.Location = new System.Drawing.Point(16, 884);
+            this.speedX1.Location = new System.Drawing.Point(16, 892);
             this.speedX1.Name = "speedX1";
-            this.speedX1.Size = new System.Drawing.Size(181, 69);
+            this.speedX1.Size = new System.Drawing.Size(70, 61);
             this.speedX1.TabIndex = 80;
-            this.speedX1.Text = "Speed X1";
+            this.speedX1.Text = " X1";
             this.speedX1.UseVisualStyleBackColor = true;
             this.speedX1.Click += new System.EventHandler(this.speedShuffleX1);
             // 
@@ -1254,7 +1271,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1392, 1053);
+            this.ClientSize = new System.Drawing.Size(1397, 1062);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -1443,8 +1460,9 @@
         private System.Windows.Forms.PictureBox background2;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button speedX3;
+        private System.Windows.Forms.Button speedX4;
         private System.Windows.Forms.Button speedX1;
+        private System.Windows.Forms.Button btnPassShuffle;
     }
 }
 

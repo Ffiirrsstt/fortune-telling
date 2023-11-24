@@ -5,12 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using timerThreading = System.Threading.Timer;
@@ -20,9 +22,18 @@ namespace FortuneTelling
     public partial class Form1 : Form
     {
         private const int speedX1Value = 20, speedX4Value = 5;
-        private Boolean passShuffle = false, cardLayout = false;
+        private Boolean passShuffle = false;
+        private Boolean cardLayout = false;
+        private Boolean closedMode = true; //โหมดใช้ไพ่ใบที่ 78 สับไพ่และคลี่ไพ่
+        private Boolean originalPosition = false; //ใช้ตอนที่เลือกไพ่ยิบซี เลือกที่รอกดยืนยันอีกครั้ง 
         private int speedDelayShuffle = speedX1Value; //เริ่มต้นตั้งค่าให้ความเร็วการสับ คือ 1 เท่า
+        private int selectedQuantity = 0;
+
+        private PreviouslySelectedData previouslySelectedData = new PreviouslySelectedData();
         private TarotSelection tarotSelection;
+
+        private PictureBox prePictureBox;
+
 
         private void settingShowBtnShuffle()
         {
@@ -223,9 +234,10 @@ namespace FortuneTelling
             }
 
             tarotSelection = new TarotSelection();
+            closedMode = false;
         }
 
-    private async void RunTarot() {
+        private async void RunTarot() {
             Tarot tarot = new Tarot();
             /*try
             {*/
@@ -256,6 +268,102 @@ namespace FortuneTelling
             }*/
         }
 
+        private void checkSelectedQuantity()
+        {
+            selectedQuantity = 0;
+            foreach (Boolean check in tarotSelection.selection)
+            {
+                if (check)
+                    selectedQuantity++;
+            }
+        }
+
+        private void tarotHide()
+        {
+            Boolean dataforShow;
+            for (int i = 1; i <= 78; i++)
+            {
+                dataforShow = tarotSelection.selection[i - 1];
+                if (!dataforShow) //ไพ่ที่ไม่ได้เลือก จัดการซ่อนทั้งหมด
+                {
+                    string pictureBoxName = "pictureBox" + i;
+                    PictureBox pictureBoxHide = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+                    if (pictureBoxHide != null)
+                        pictureBoxHide.Hide();
+                }
+            }
+        }
+
+        private async Task selectedConfirmMotion(PictureBox pictureBox, int index, int X, int Y)
+        {
+            checkSelectedQuantity();
+            int positionX = 925 - (37 * selectedQuantity - 1);
+            while (X <= positionX)
+            {
+                X += 15;
+                pictureBox.Location = new Point(X, 90);
+                pictureBox.BringToFront();
+                await Task.Delay(5);
+            }
+            if (selectedQuantity == 10)
+                tarotHide();
+
+            originalPosition = false; //ยืนยันไพ่เรียบร้อยแล้ว ยังไม่ต้องการส่งไพ่กลับที่เดิม
+        }
+
+        private async Task selectedNotConfirmYetMotion(PictureBox pictureBox, int index, int X, int Y)
+        {
+            if (originalPosition) //ต้องการส่งไพ่ใบที่เลือกก่อนหน้านี้กลับที่เดิม (ที่เลือกและยังไม่ได้ยืนยัน)
+            {
+                int preX = previouslySelectedData.X;
+                int preY = previouslySelectedData.Y;
+                prePictureBox.Location = new Point(preX, preY);
+                label2.Text = prePictureBox.Name;
+            }
+            prePictureBox = pictureBox;
+            previouslySelectedData.X = X;
+            previouslySelectedData.Y = Y;
+
+            while (Y > 100)
+            {
+                Y -= 10;
+                pictureBox.Location = new Point(X, Y);
+                await Task.Delay(5);
+            }
+            while (X > 470 || X < 450)
+            {
+                if (X > 470)
+                    X -= 10;
+                else
+                    X += 10;
+                pictureBox.Location = new Point(X, Y);
+                await Task.Delay(5);
+            }
+
+            tarotSelection.selection[index] = true;
+            originalPosition = true; //ตั้งค่าพร้อมส่งกลับที่เดิมหากไปกดเลือกไพ่ใบใหม่
+        }
+
+        private async void tarotPositionSelection(int pictureBoxNumber, int index)
+        {
+            Boolean confirm = tarotSelection.selection[index];
+            /*confirm = false คือคลิกเลือกไพ่ครั้งแรก
+             confirm = true คือยืนยันการเลือกไพ่*/
+            string pictureBoxName = "pictureBox" + pictureBoxNumber;
+            PictureBox pictureBox = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+            if (pictureBox != null)
+            {
+                int X = pictureBox.Location.X;
+                int Y = pictureBox.Location.Y;
+                if (confirm)
+                    selectedConfirmMotion(pictureBox, index, X, Y);
+                else
+                    selectedNotConfirmYetMotion(pictureBox, index, X, Y);
+            }
+            else
+                Message.messageError();
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -267,27 +375,6 @@ namespace FortuneTelling
             background1.Click += StartLoadProgram;
 
             settingHideBtnShuffle(); //จัดการกับปุ่มจัดการความเร็วและข้ามอนิเมชั่นการสับไพ่
-        }
-
-        private void tarotPositionSelection(int pictureBoxNumber, int index)
-        {
-            Boolean confirm =  tarotSelection.selection[index];
-            /*confirm = false คือคลิกเลือกไพ่ครั้งแรก
-             confirm = true คือยืนยันการเลือกไพ่*/
-            if (confirm)//129
-            {
-                string pictureBoxName = "pictureBox" + pictureBoxNumber;
-                PictureBox pictureBox = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
-
-                if (pictureBox != null)
-                {
-                    int X = pictureBox.Location.X;
-                    int Y = pictureBox.Location.Y;
-                    //while(X<=)
-                }
-                else
-                    Message.messageError();
-            }
         }
 
         private void clickTarot(object sender, EventArgs e)
@@ -334,7 +421,8 @@ namespace FortuneTelling
 
         private void pictureBox78_Click(object sender, EventArgs e)
         {
-            RunTarot();
+            if(closedMode)
+                RunTarot();
         }
 
         private void label2_Click(object sender, EventArgs e)

@@ -13,7 +13,7 @@ using Application = System.Windows.Forms.Application;
 
 namespace FortuneTelling
 {
-    internal class Img:Form
+    internal class Img: System.Windows.Forms.Form
     {
         private static string[] fileCover = 
             {"cover1.jpg", "cover2.jpg", "cover3.jpg", "cover4.jpg", "cover5.jpg" , "cover6.jpg"

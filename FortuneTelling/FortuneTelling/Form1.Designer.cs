@@ -1,6 +1,6 @@
 ﻿namespace FortuneTelling
 {
-    partial class Form1
+    partial class Form
     {
         /// <summary>
         /// Required designer variable.
@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
             this.TimerStartProgram = new System.Windows.Forms.Timer(this.components);
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.runTarotProgram = new System.Windows.Forms.TabPage();
+            this.textDataTarot = new System.Windows.Forms.Label();
+            this.btnOpenCard = new System.Windows.Forms.Button();
             this.btnPassShuffle = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.pictureBox78 = new System.Windows.Forms.PictureBox();
             this.pictureBox77 = new System.Windows.Forms.PictureBox();
             this.pictureBox76 = new System.Windows.Forms.PictureBox();
@@ -112,11 +114,11 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.speedX4 = new System.Windows.Forms.Button();
+            this.textHead = new System.Windows.Forms.Label();
             this.speedX1 = new System.Windows.Forms.Button();
             this.background = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnModeDay = new System.Windows.Forms.Button();
+            this.btnModeLove = new System.Windows.Forms.Button();
             this.bgMain = new System.Windows.Forms.PictureBox();
             this.labelClickStartProgram = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -124,7 +126,9 @@
             this.background3 = new System.Windows.Forms.PictureBox();
             this.background2 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2.SuspendLayout();
+            this.DataNumShuffle = new System.Windows.Forms.TextBox();
+            this.description = new System.Windows.Forms.Label();
+            this.runTarotProgram.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox78)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox77)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox76)).BeginInit();
@@ -216,101 +220,137 @@
             this.TimerStartProgram.Interval = 500;
             this.TimerStartProgram.Tick += new System.EventHandler(this.TimerStartProgram_Tick);
             // 
-            // tabPage2
+            // runTarotProgram
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.tabPage2.Controls.Add(this.btnPassShuffle);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.pictureBox78);
-            this.tabPage2.Controls.Add(this.pictureBox77);
-            this.tabPage2.Controls.Add(this.pictureBox76);
-            this.tabPage2.Controls.Add(this.pictureBox75);
-            this.tabPage2.Controls.Add(this.pictureBox74);
-            this.tabPage2.Controls.Add(this.pictureBox73);
-            this.tabPage2.Controls.Add(this.pictureBox72);
-            this.tabPage2.Controls.Add(this.pictureBox71);
-            this.tabPage2.Controls.Add(this.pictureBox70);
-            this.tabPage2.Controls.Add(this.pictureBox69);
-            this.tabPage2.Controls.Add(this.pictureBox68);
-            this.tabPage2.Controls.Add(this.pictureBox67);
-            this.tabPage2.Controls.Add(this.pictureBox66);
-            this.tabPage2.Controls.Add(this.pictureBox65);
-            this.tabPage2.Controls.Add(this.pictureBox64);
-            this.tabPage2.Controls.Add(this.pictureBox63);
-            this.tabPage2.Controls.Add(this.pictureBox62);
-            this.tabPage2.Controls.Add(this.pictureBox61);
-            this.tabPage2.Controls.Add(this.pictureBox60);
-            this.tabPage2.Controls.Add(this.pictureBox59);
-            this.tabPage2.Controls.Add(this.pictureBox58);
-            this.tabPage2.Controls.Add(this.pictureBox57);
-            this.tabPage2.Controls.Add(this.pictureBox56);
-            this.tabPage2.Controls.Add(this.pictureBox55);
-            this.tabPage2.Controls.Add(this.pictureBox54);
-            this.tabPage2.Controls.Add(this.pictureBox53);
-            this.tabPage2.Controls.Add(this.pictureBox52);
-            this.tabPage2.Controls.Add(this.pictureBox51);
-            this.tabPage2.Controls.Add(this.pictureBox50);
-            this.tabPage2.Controls.Add(this.pictureBox49);
-            this.tabPage2.Controls.Add(this.pictureBox48);
-            this.tabPage2.Controls.Add(this.pictureBox47);
-            this.tabPage2.Controls.Add(this.pictureBox46);
-            this.tabPage2.Controls.Add(this.pictureBox45);
-            this.tabPage2.Controls.Add(this.pictureBox44);
-            this.tabPage2.Controls.Add(this.pictureBox43);
-            this.tabPage2.Controls.Add(this.pictureBox42);
-            this.tabPage2.Controls.Add(this.pictureBox41);
-            this.tabPage2.Controls.Add(this.pictureBox40);
-            this.tabPage2.Controls.Add(this.pictureBox39);
-            this.tabPage2.Controls.Add(this.pictureBox38);
-            this.tabPage2.Controls.Add(this.pictureBox37);
-            this.tabPage2.Controls.Add(this.pictureBox36);
-            this.tabPage2.Controls.Add(this.pictureBox35);
-            this.tabPage2.Controls.Add(this.pictureBox34);
-            this.tabPage2.Controls.Add(this.pictureBox33);
-            this.tabPage2.Controls.Add(this.pictureBox32);
-            this.tabPage2.Controls.Add(this.pictureBox31);
-            this.tabPage2.Controls.Add(this.pictureBox30);
-            this.tabPage2.Controls.Add(this.pictureBox29);
-            this.tabPage2.Controls.Add(this.pictureBox28);
-            this.tabPage2.Controls.Add(this.pictureBox27);
-            this.tabPage2.Controls.Add(this.pictureBox26);
-            this.tabPage2.Controls.Add(this.pictureBox25);
-            this.tabPage2.Controls.Add(this.pictureBox24);
-            this.tabPage2.Controls.Add(this.pictureBox23);
-            this.tabPage2.Controls.Add(this.pictureBox22);
-            this.tabPage2.Controls.Add(this.pictureBox21);
-            this.tabPage2.Controls.Add(this.pictureBox20);
-            this.tabPage2.Controls.Add(this.pictureBox19);
-            this.tabPage2.Controls.Add(this.pictureBox18);
-            this.tabPage2.Controls.Add(this.pictureBox17);
-            this.tabPage2.Controls.Add(this.pictureBox16);
-            this.tabPage2.Controls.Add(this.pictureBox15);
-            this.tabPage2.Controls.Add(this.pictureBox14);
-            this.tabPage2.Controls.Add(this.pictureBox13);
-            this.tabPage2.Controls.Add(this.pictureBox12);
-            this.tabPage2.Controls.Add(this.pictureBox11);
-            this.tabPage2.Controls.Add(this.pictureBox10);
-            this.tabPage2.Controls.Add(this.pictureBox9);
-            this.tabPage2.Controls.Add(this.pictureBox8);
-            this.tabPage2.Controls.Add(this.pictureBox7);
-            this.tabPage2.Controls.Add(this.pictureBox6);
-            this.tabPage2.Controls.Add(this.pictureBox5);
-            this.tabPage2.Controls.Add(this.pictureBox4);
-            this.tabPage2.Controls.Add(this.pictureBox3);
-            this.tabPage2.Controls.Add(this.pictureBox2);
-            this.tabPage2.Controls.Add(this.pictureBox1);
-            this.tabPage2.Controls.Add(this.speedX4);
-            this.tabPage2.Controls.Add(this.speedX1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1361, 968);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.runTarotProgram.BackColor = System.Drawing.Color.Transparent;
+            this.runTarotProgram.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.runTarotProgram.Controls.Add(this.description);
+            this.runTarotProgram.Controls.Add(this.DataNumShuffle);
+            this.runTarotProgram.Controls.Add(this.textDataTarot);
+            this.runTarotProgram.Controls.Add(this.btnOpenCard);
+            this.runTarotProgram.Controls.Add(this.btnPassShuffle);
+            this.runTarotProgram.Controls.Add(this.pictureBox78);
+            this.runTarotProgram.Controls.Add(this.pictureBox77);
+            this.runTarotProgram.Controls.Add(this.pictureBox76);
+            this.runTarotProgram.Controls.Add(this.pictureBox75);
+            this.runTarotProgram.Controls.Add(this.pictureBox74);
+            this.runTarotProgram.Controls.Add(this.pictureBox73);
+            this.runTarotProgram.Controls.Add(this.pictureBox72);
+            this.runTarotProgram.Controls.Add(this.pictureBox71);
+            this.runTarotProgram.Controls.Add(this.pictureBox70);
+            this.runTarotProgram.Controls.Add(this.pictureBox69);
+            this.runTarotProgram.Controls.Add(this.pictureBox68);
+            this.runTarotProgram.Controls.Add(this.pictureBox67);
+            this.runTarotProgram.Controls.Add(this.pictureBox66);
+            this.runTarotProgram.Controls.Add(this.pictureBox65);
+            this.runTarotProgram.Controls.Add(this.pictureBox64);
+            this.runTarotProgram.Controls.Add(this.pictureBox63);
+            this.runTarotProgram.Controls.Add(this.pictureBox62);
+            this.runTarotProgram.Controls.Add(this.pictureBox61);
+            this.runTarotProgram.Controls.Add(this.pictureBox60);
+            this.runTarotProgram.Controls.Add(this.pictureBox59);
+            this.runTarotProgram.Controls.Add(this.pictureBox58);
+            this.runTarotProgram.Controls.Add(this.pictureBox57);
+            this.runTarotProgram.Controls.Add(this.pictureBox56);
+            this.runTarotProgram.Controls.Add(this.pictureBox55);
+            this.runTarotProgram.Controls.Add(this.pictureBox54);
+            this.runTarotProgram.Controls.Add(this.pictureBox53);
+            this.runTarotProgram.Controls.Add(this.pictureBox52);
+            this.runTarotProgram.Controls.Add(this.pictureBox51);
+            this.runTarotProgram.Controls.Add(this.pictureBox50);
+            this.runTarotProgram.Controls.Add(this.pictureBox49);
+            this.runTarotProgram.Controls.Add(this.pictureBox48);
+            this.runTarotProgram.Controls.Add(this.pictureBox47);
+            this.runTarotProgram.Controls.Add(this.pictureBox46);
+            this.runTarotProgram.Controls.Add(this.pictureBox45);
+            this.runTarotProgram.Controls.Add(this.pictureBox44);
+            this.runTarotProgram.Controls.Add(this.pictureBox43);
+            this.runTarotProgram.Controls.Add(this.pictureBox42);
+            this.runTarotProgram.Controls.Add(this.pictureBox41);
+            this.runTarotProgram.Controls.Add(this.pictureBox40);
+            this.runTarotProgram.Controls.Add(this.pictureBox39);
+            this.runTarotProgram.Controls.Add(this.pictureBox38);
+            this.runTarotProgram.Controls.Add(this.pictureBox37);
+            this.runTarotProgram.Controls.Add(this.pictureBox36);
+            this.runTarotProgram.Controls.Add(this.pictureBox35);
+            this.runTarotProgram.Controls.Add(this.pictureBox34);
+            this.runTarotProgram.Controls.Add(this.pictureBox33);
+            this.runTarotProgram.Controls.Add(this.pictureBox32);
+            this.runTarotProgram.Controls.Add(this.pictureBox31);
+            this.runTarotProgram.Controls.Add(this.pictureBox30);
+            this.runTarotProgram.Controls.Add(this.pictureBox29);
+            this.runTarotProgram.Controls.Add(this.pictureBox28);
+            this.runTarotProgram.Controls.Add(this.pictureBox27);
+            this.runTarotProgram.Controls.Add(this.pictureBox26);
+            this.runTarotProgram.Controls.Add(this.pictureBox25);
+            this.runTarotProgram.Controls.Add(this.pictureBox24);
+            this.runTarotProgram.Controls.Add(this.pictureBox23);
+            this.runTarotProgram.Controls.Add(this.pictureBox22);
+            this.runTarotProgram.Controls.Add(this.pictureBox21);
+            this.runTarotProgram.Controls.Add(this.pictureBox20);
+            this.runTarotProgram.Controls.Add(this.pictureBox19);
+            this.runTarotProgram.Controls.Add(this.pictureBox18);
+            this.runTarotProgram.Controls.Add(this.pictureBox17);
+            this.runTarotProgram.Controls.Add(this.pictureBox16);
+            this.runTarotProgram.Controls.Add(this.pictureBox15);
+            this.runTarotProgram.Controls.Add(this.pictureBox14);
+            this.runTarotProgram.Controls.Add(this.pictureBox13);
+            this.runTarotProgram.Controls.Add(this.pictureBox12);
+            this.runTarotProgram.Controls.Add(this.pictureBox11);
+            this.runTarotProgram.Controls.Add(this.pictureBox10);
+            this.runTarotProgram.Controls.Add(this.pictureBox9);
+            this.runTarotProgram.Controls.Add(this.pictureBox8);
+            this.runTarotProgram.Controls.Add(this.pictureBox7);
+            this.runTarotProgram.Controls.Add(this.pictureBox6);
+            this.runTarotProgram.Controls.Add(this.pictureBox5);
+            this.runTarotProgram.Controls.Add(this.pictureBox4);
+            this.runTarotProgram.Controls.Add(this.pictureBox3);
+            this.runTarotProgram.Controls.Add(this.pictureBox2);
+            this.runTarotProgram.Controls.Add(this.pictureBox1);
+            this.runTarotProgram.Controls.Add(this.speedX4);
+            this.runTarotProgram.Controls.Add(this.textHead);
+            this.runTarotProgram.Controls.Add(this.speedX1);
+            this.runTarotProgram.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.runTarotProgram.Location = new System.Drawing.Point(4, 25);
+            this.runTarotProgram.Name = "runTarotProgram";
+            this.runTarotProgram.Padding = new System.Windows.Forms.Padding(3);
+            this.runTarotProgram.Size = new System.Drawing.Size(1361, 968);
+            this.runTarotProgram.TabIndex = 1;
+            this.runTarotProgram.Text = "หน้าดูดวง";
+            // 
+            // textDataTarot
+            // 
+            this.textDataTarot.BackColor = System.Drawing.Color.Transparent;
+            this.textDataTarot.Font = new System.Drawing.Font("Microsoft YaHei UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textDataTarot.ForeColor = System.Drawing.Color.Black;
+            this.textDataTarot.Location = new System.Drawing.Point(850, 17);
+            this.textDataTarot.Name = "textDataTarot";
+            this.textDataTarot.Size = new System.Drawing.Size(505, 91);
+            this.textDataTarot.TabIndex = 84;
+            this.textDataTarot.Text = "label2";
+            this.textDataTarot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnOpenCard
+            // 
+            this.btnOpenCard.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenCard.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnOpenCard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.btnOpenCard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnOpenCard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnOpenCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnOpenCard.ForeColor = System.Drawing.Color.Black;
+            this.btnOpenCard.Location = new System.Drawing.Point(512, 17);
+            this.btnOpenCard.Name = "btnOpenCard";
+            this.btnOpenCard.Size = new System.Drawing.Size(320, 61);
+            this.btnOpenCard.TabIndex = 83;
+            this.btnOpenCard.Text = "Click to open the card";
+            this.btnOpenCard.UseVisualStyleBackColor = false;
             // 
             // btnPassShuffle
             // 
+            this.btnPassShuffle.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnPassShuffle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnPassShuffle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.btnPassShuffle.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPassShuffle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnPassShuffle.Location = new System.Drawing.Point(92, 892);
@@ -320,16 +360,6 @@
             this.btnPassShuffle.Text = "PASS";
             this.btnPassShuffle.UseVisualStyleBackColor = true;
             this.btnPassShuffle.Click += new System.EventHandler(this.btnPassShuffle_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(89, 229);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 16);
-            this.label2.TabIndex = 78;
-            this.label2.Text = "label2";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // pictureBox78
             // 
@@ -1114,19 +1144,36 @@
             // 
             // speedX4
             // 
-            this.speedX4.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.speedX4.BackColor = System.Drawing.Color.Transparent;
+            this.speedX4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.speedX4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.speedX4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.speedX4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.speedX4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.speedX4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.speedX4.Location = new System.Drawing.Point(16, 892);
             this.speedX4.Name = "speedX4";
             this.speedX4.Size = new System.Drawing.Size(70, 61);
             this.speedX4.TabIndex = 79;
             this.speedX4.Text = "X4";
-            this.speedX4.UseVisualStyleBackColor = true;
+            this.speedX4.UseVisualStyleBackColor = false;
             this.speedX4.Click += new System.EventHandler(this.speedShuffleX4);
+            // 
+            // textHead
+            // 
+            this.textHead.Font = new System.Drawing.Font("Microsoft YaHei UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textHead.Location = new System.Drawing.Point(1229, 811);
+            this.textHead.Name = "textHead";
+            this.textHead.Size = new System.Drawing.Size(124, 48);
+            this.textHead.TabIndex = 82;
+            this.textHead.Text = "label2";
             // 
             // speedX1
             // 
+            this.speedX1.BackColor = System.Drawing.Color.Transparent;
+            this.speedX1.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.speedX1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.speedX1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.speedX1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.speedX1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.speedX1.Location = new System.Drawing.Point(16, 892);
@@ -1134,16 +1181,15 @@
             this.speedX1.Size = new System.Drawing.Size(70, 61);
             this.speedX1.TabIndex = 80;
             this.speedX1.Text = " X1";
-            this.speedX1.UseVisualStyleBackColor = true;
+            this.speedX1.UseVisualStyleBackColor = false;
             this.speedX1.Click += new System.EventHandler(this.speedShuffleX1);
             // 
             // background
             // 
             this.background.BackgroundImage = global::FortuneTelling.Properties.Resources.StartProgram;
             this.background.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.background.Controls.Add(this.button3);
-            this.background.Controls.Add(this.button2);
-            this.background.Controls.Add(this.button1);
+            this.background.Controls.Add(this.btnModeDay);
+            this.background.Controls.Add(this.btnModeLove);
             this.background.Controls.Add(this.bgMain);
             this.background.Controls.Add(this.labelClickStartProgram);
             this.background.Controls.Add(this.label1);
@@ -1155,47 +1201,36 @@
             this.background.Padding = new System.Windows.Forms.Padding(3);
             this.background.Size = new System.Drawing.Size(1361, 968);
             this.background.TabIndex = 0;
-            this.background.Text = "tabPage1";
+            this.background.Text = "หน้าหลัก";
             this.background.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnModeDay
             // 
-            this.button3.BackgroundImage = global::FortuneTelling.Properties.Resources.StartProgram1;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(947, 671);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(248, 95);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "สุขภาพ";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnModeDay.BackgroundImage = global::FortuneTelling.Properties.Resources.StartProgram1;
+            this.btnModeDay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnModeDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnModeDay.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnModeDay.Location = new System.Drawing.Point(940, 652);
+            this.btnModeDay.Name = "btnModeDay";
+            this.btnModeDay.Size = new System.Drawing.Size(248, 95);
+            this.btnModeDay.TabIndex = 7;
+            this.btnModeDay.Text = "รายวัน";
+            this.btnModeDay.UseVisualStyleBackColor = true;
+            this.btnModeDay.Click += new System.EventHandler(this.btnModeDay_Click);
             // 
-            // button2
+            // btnModeLove
             // 
-            this.button2.BackgroundImage = global::FortuneTelling.Properties.Resources.StartProgram1;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.Location = new System.Drawing.Point(727, 244);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(248, 95);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "การเงิน";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::FortuneTelling.Properties.Resources.StartProgram1;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(92, 110);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(248, 95);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "ความรัก";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnModeLove.BackgroundImage = global::FortuneTelling.Properties.Resources.StartProgram1;
+            this.btnModeLove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnModeLove.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnModeLove.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnModeLove.Location = new System.Drawing.Point(678, 229);
+            this.btnModeLove.Name = "btnModeLove";
+            this.btnModeLove.Size = new System.Drawing.Size(248, 95);
+            this.btnModeLove.TabIndex = 6;
+            this.btnModeLove.Text = "ความรัก";
+            this.btnModeLove.UseVisualStyleBackColor = true;
+            this.btnModeLove.Click += new System.EventHandler(this.btnModeLove_Click);
             // 
             // bgMain
             // 
@@ -1259,25 +1294,48 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.background);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.runTarotProgram);
             this.tabControl1.Location = new System.Drawing.Point(12, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1369, 997);
             this.tabControl1.TabIndex = 2;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.mainProgram_Select);
             // 
-            // Form1
+            // DataNumShuffle
+            // 
+            this.DataNumShuffle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.DataNumShuffle.Location = new System.Drawing.Point(512, 189);
+            this.DataNumShuffle.Multiline = true;
+            this.DataNumShuffle.Name = "DataNumShuffle";
+            this.DataNumShuffle.Size = new System.Drawing.Size(320, 73);
+            this.DataNumShuffle.TabIndex = 86;
+            // 
+            // description
+            // 
+            this.description.BackColor = System.Drawing.Color.Transparent;
+            this.description.Font = new System.Drawing.Font("Microsoft YaHei UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.description.ForeColor = System.Drawing.Color.Black;
+            this.description.Location = new System.Drawing.Point(439, 95);
+            this.description.Name = "description";
+            this.description.Size = new System.Drawing.Size(455, 91);
+            this.description.TabIndex = 87;
+            this.description.Text = "ป้อนอายุหรือเลขที่ชอบเพื่อใช้เป็นจำนวนในการสับไพ่";
+            this.description.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1397, 1062);
             this.Controls.Add(this.tabControl1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Form";
+            this.Text = "โปรแกรมดูดวง";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.runTarotProgram.ResumeLayout(false);
+            this.runTarotProgram.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox78)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox77)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox76)).EndInit();
@@ -1369,7 +1427,7 @@
 
         #endregion
         private System.Windows.Forms.Timer TimerStartProgram;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage runTarotProgram;
         private System.Windows.Forms.PictureBox pictureBox78;
         private System.Windows.Forms.PictureBox pictureBox77;
         private System.Windows.Forms.PictureBox pictureBox76;
@@ -1449,9 +1507,8 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabPage background;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnModeDay;
+        private System.Windows.Forms.Button btnModeLove;
         private System.Windows.Forms.PictureBox bgMain;
         private System.Windows.Forms.Label labelClickStartProgram;
         private System.Windows.Forms.Label label1;
@@ -1459,10 +1516,14 @@
         private System.Windows.Forms.PictureBox background3;
         private System.Windows.Forms.PictureBox background2;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button speedX4;
         private System.Windows.Forms.Button speedX1;
         private System.Windows.Forms.Button btnPassShuffle;
+        private System.Windows.Forms.Label textHead;
+        private System.Windows.Forms.Button btnOpenCard;
+        private System.Windows.Forms.Label textDataTarot;
+        private System.Windows.Forms.Label description;
+        private System.Windows.Forms.TextBox DataNumShuffle;
     }
 }
 

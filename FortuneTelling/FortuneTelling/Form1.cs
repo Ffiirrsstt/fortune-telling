@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
@@ -19,15 +21,16 @@ using timerThreading = System.Threading.Timer;
 
 namespace FortuneTelling
 {
-    public partial class Form1 : Form
+    public partial class Form : System.Windows.Forms.Form
     {
         private const int speedX1Value = 20, speedX4Value = 5;
         private Boolean passShuffle = false;
         private Boolean cardLayout = false;
-        private Boolean closedMode = true; //โหมดใช้ไพ่ใบที่ 78 สับไพ่และคลี่ไพ่
+        private Boolean closedMode; //โหมดใช้ไพ่ใบที่ 78 สับไพ่และคลี่ไพ่
         private Boolean originalPosition = false; //ใช้ตอนที่เลือกไพ่ยิบซี เลือกที่รอกดยืนยันอีกครั้ง 
         private int speedDelayShuffle = speedX1Value; //เริ่มต้นตั้งค่าให้ความเร็วการสับ คือ 1 เท่า
-        private int selectedQuantity = 0;
+        private string mode;
+        private TabPage deletedPage;
 
         private PreviouslySelectedData previouslySelectedData = new PreviouslySelectedData();
         private TarotSelection tarotSelection;
@@ -43,11 +46,77 @@ namespace FortuneTelling
                 speedX1.Show();
             btnPassShuffle.Show();
         }
+
         private void settingHideBtnShuffle()
         {
             speedX1.Hide();
             speedX4.Hide();
             btnPassShuffle.Hide();
+        }
+
+        private void settingTarotData()
+        {
+            btnOpenCard.Hide();
+            textHead.Hide();
+            textDataTarot.Hide();
+        }
+
+        private void settingHidePageMain()
+        {
+            bgMain.Hide();
+            btnModeLove.Hide();
+            btnModeDay.Hide();
+        }
+
+        private void settingShowPageMain()
+        {
+            bgMain.Show();
+            btnModeLove.Show();
+            btnModeDay.Show();
+
+            bgMain.BringToFront();
+            btnModeLove.BringToFront();
+            btnModeDay.BringToFront();
+            closedMode = true; //โหมดใช้ไพ่ใบที่ 78 สับไพ่และคลี่ไพ่
+        }
+
+        private void settingTarotStart() //เซ็ตให้ไพ่อยู่ที่จุดเริ่มต้น
+        {
+            PictureBox pictureBoxforFind;
+            for (int i = 1; i <= 78; i++)
+            {
+                string pictureBoxName = "pictureBox" + i;
+                pictureBoxforFind = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+                if (pictureBoxforFind != null)
+                {
+                    pictureBoxforFind.Location = new Point(925, 620);
+                }
+                else
+                    Message.messageError();
+            }
+        }
+
+        private void settingProgram()
+        {
+            deletedPage = tabControl1.TabPages[1];
+            tabControl1.TabPages.RemoveAt(1);
+
+            labelClickStartProgram.Click += StartLoadProgram;
+            background1.Click += StartLoadProgram;
+
+            settingHideBtnShuffle(); //จัดการกับปุ่มจัดการความเร็วและข้ามอนิเมชั่นการสับไพ่
+            settingTarotData();
+        }
+
+        private void settingSelectTabpage2()
+        {
+            tabControl1.TabPages.Add(deletedPage);
+            tabControl1.SelectTab(deletedPage);
+            settingTarotStart();
+            description.Show();
+            DataNumShuffle.Show();
+            DataNumShuffle.Focus();
+            tabControl1.TabPages.RemoveAt(0);
         }
 
         private void cardsDestination(int start, int fromnumberAddforShuffle, int[] destination)
@@ -173,11 +242,6 @@ namespace FortuneTelling
 
                 if (pictureBoxforFind != null)
                 {
-                    //string path = Path.Combine(Application.StartupPath, Tarot.TarotData[i][0].ToLower().Replace(" ", "-") + ".png");
-                    string path = Path.Combine(Application.StartupPath, Tarot.TarotData[i][0] + ".png");
-                    pictureBoxforFind.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pictureBoxforFind.Image = Image.FromFile(path);
-
                     start = await sendCartDestination(pictureBoxforFind, start, end, step);
                     if (i != 1)
                         await cardShufflePattern(pictureBoxforFind, start, end, step);
@@ -226,8 +290,8 @@ namespace FortuneTelling
                 if (pictureBox != null)
                 {
                     pictureBox.Click += new EventHandler(clickTarot);
-                    int X = int.Parse(Tarot.TarotData[i - 1][2]);
-                    int Y = int.Parse(Tarot.TarotData[i - 1][3]);
+                    int X = int.Parse(Tarot.TarotData[i - 1][3]);
+                    int Y = int.Parse(Tarot.TarotData[i - 1][4]);
                     pictureBox.Location = new Point(X, Y);
                     pictureBox.BringToFront();
                 }
@@ -237,78 +301,252 @@ namespace FortuneTelling
             closedMode = false;
         }
 
-        private async void RunTarot() {
+        private async void RunTarot(int result) {
             Tarot tarot = new Tarot();
-            /*try
-            {*/
-                int shuffleNumber = 10; //จำนวนครั้งการสับไพ่
+            try {
+                int shuffleNumber = result; //จำนวนครั้งการสับไพ่
                 int numberAddforShuffle = (int)Math.Ceiling(78.0/ shuffleNumber); //สับไพ่ครั้งละกี่ใบ ใช้ในอนิเมชั่นการสับไพ่
                 
                 tarot.shuffleDetail(shuffleNumber); //สับไพ่(ข้อมูล)
 
                 //คุมให้กดไพ่ครั้งแรกเป็นการสับไพ่ กดครั้งที่สองเป็นการคลี่ไพ่ (วางเรียงให้หยิบไพ่ง่าย ๆ)
-                if(cardLayout)
+                if (cardLayout)
                 {
                     sort(); //คลี่ไพ่
                     cardLayout = false;
+                }
+                else
+                {
+                    //อนิเมชั่นสับไพ่
+                    await animatedCardShuffle(new int[] { 925, 620 }, new int[] { 460, 310 }, 10, numberAddforShuffle);
+                    /*460 มาจาก 925/2 แล้วปัดเป็นเลขกลม ๆ และ 310 มาจาก 620/2
+                     925 และ 620 คือขนาดโดยประมาณ ที่หารสองเพื่อให้อยู่ตรงกลางหน้าโปรแกรม
+                     */
+                    cardLayout = true;
+                }
             }
-            else
-            {
-                //อนิเมชั่นสับไพ่
-                await animatedCardShuffle(new int[] {925,620}, new int[] { 460, 310 }, 10, numberAddforShuffle);
-                /*460 มาจาก 925/2 แล้วปัดเป็นเลขกลม ๆ และ 310 มาจาก 620/2
-                 925 และ 620 คือขนาดโดยประมาณ ที่หารสองเพื่อให้อยู่ตรงกลางหน้าโปรแกรม
-                 */
-                cardLayout = true;
-            }
-            /*}
             catch
             {
                 Message.messageError();
-            }*/
-        }
-
-        private void checkSelectedQuantity()
-        {
-            selectedQuantity = 0;
-            foreach (Boolean check in tarotSelection.selection)
-            {
-                if (check)
-                    selectedQuantity++;
             }
         }
 
-        private void tarotHide()
+        private async Task mangePositionY3(PictureBox pictureBoxHide, int X,int Y,int Yfinal , int stepY)
         {
-            Boolean dataforShow;
+            while (Y < 453) //เริ่มเคลื่อนแถวสาม
+            {
+                Y += stepY;
+                pictureBoxHide.SendToBack();
+                pictureBoxHide.Location = new Point(X, Y);
+                await Task.Delay(5);
+            }
+            pictureBoxHide.Location = new Point(925, Yfinal); //เอาไปซ้อนหลังสองแล้วเคลื่อนไป 1 ทันที
+        }
+
+        private async Task mangePositionY2(PictureBox pictureBoxHide, int X, int Y, int dataValueY, int stepY)
+        {
+            while (Y < dataValueY) //แถวสองเคลื่อนไปแถว 1 
+            {
+                Y += stepY;
+                pictureBoxHide.SendToBack();
+                pictureBoxHide.Location = new Point(X, Y);
+                await Task.Delay(5);
+            }
+        }
+
+        private async Task tarotHideX(PictureBox pictureBoxSelected)
+        {
+            for (int i = 1; i <= 26; i++) //26+26+26 = 78 ใบ
+            {
+                string pictureBoxName1 = "pictureBox" + i; //แถวหนึ่ง
+                string pictureBoxName2 = "pictureBox" + (i + 26); //แถวสอง
+                string pictureBoxName3 = "pictureBox" + (i + (26 * 2)); //แถวสาม
+                PictureBox pictureBoxHide1 = Controls.Find(pictureBoxName1, true).FirstOrDefault() as PictureBox;
+                PictureBox pictureBoxHide2 = Controls.Find(pictureBoxName2, true).FirstOrDefault() as PictureBox;
+                PictureBox pictureBoxHide3 = Controls.Find(pictureBoxName3, true).FirstOrDefault() as PictureBox;
+                if (pictureBoxHide1 != null && pictureBoxHide2 != null && pictureBoxHide3 != null)
+                {
+                    int X1 = pictureBoxHide1.Location.X;
+                    int X2 = pictureBoxHide2.Location.X;
+                    int X3 = pictureBoxHide3.Location.X;
+                    int Y1 = pictureBoxHide1.Location.Y;
+                    int Y2 = pictureBoxHide2.Location.Y;
+                    int Y3 = pictureBoxHide3.Location.Y;
+                    int X = 925, stepX = 60;
+                    //X ที่ต้องการนำไปเทียบเพื่อเพิ่มค่า X ของแต่ละรูป , Y ที่ต้องการนำไปเทียบเพื่อเพิ่มค่า Y ของแต่ละรูป
+                    while (X1 < X || X2 < X || X3 < X)
+                    {
+                        if (X1 < X)
+                            X1 += stepX;
+                        if (X2 < X)
+                            X2 += stepX;
+                        if (X3 < X)
+                            X3 += stepX;
+                        pictureBoxHide1.Location = new Point(X1, Y1);
+                        pictureBoxHide2.Location = new Point(X2, Y2);
+                        pictureBoxHide3.Location = new Point(X3, Y3);
+                        await Task.Delay(5);
+                    }
+                    //ใช้ step เยอะจะได้ไว ๆ และตั้งตรงนี้ให้ภาพไพ่มาที่จุดที่ต้องการแบบพอดี ๆ
+                    pictureBoxHide1.Location = new Point(925, Y1);
+                    pictureBoxHide2.Location = new Point(925, Y2);
+                    pictureBoxHide3.Location = new Point(925, Y3);
+                }
+                else
+                    Message.messageError();
+            }
+        }
+
+        private async Task tarotHideY(PictureBox pictureBoxSelected)
+        {
+            for (int i = 1; i <= 26; i++) //26+26+26 = 78 ใบ
+            {
+                string pictureBoxName1 = "pictureBox" + i; //แถวหนึ่ง
+                string pictureBoxName2 = "pictureBox" + (i + 26); //แถวสอง
+                string pictureBoxName3 = "pictureBox" + (i + (26 * 2)); //แถวสาม
+                PictureBox pictureBoxHide1 = Controls.Find(pictureBoxName1, true).FirstOrDefault() as PictureBox;
+                PictureBox pictureBoxHide2 = Controls.Find(pictureBoxName2, true).FirstOrDefault() as PictureBox;
+                PictureBox pictureBoxHide3 = Controls.Find(pictureBoxName3, true).FirstOrDefault() as PictureBox;
+                if (pictureBoxHide1 != null && pictureBoxHide2 != null && pictureBoxHide3 != null)
+                {
+                    int X2 = pictureBoxHide2.Location.X;
+                    int X3 = pictureBoxHide3.Location.X;
+                    int Y2 = pictureBoxHide2.Location.Y;
+                    int Y3 = pictureBoxHide3.Location.Y;
+                    int X = 925, Y = 615, stepY = 5;
+                    if (i != 26) //แถวหนึ่งไม่ตรงเคลื่อนลงแล้ว 
+                    {
+                        if (i == 25)
+                        {
+                            string pictureBoxName26for2 = "pictureBox" + 52; //เช็กแถว 2 ไพ่ที่ 26
+                            string pictureBoxName26for3 = "pictureBox" + 78; //เช็กแถว 3 ไพ่ที่ 26
+                            PictureBox pictureBoxHide26for2 = Controls.Find(pictureBoxName26for2, true).FirstOrDefault() as PictureBox;
+                            PictureBox pictureBoxHide26for3 = Controls.Find(pictureBoxName26for3, true).FirstOrDefault() as PictureBox;
+                            if (pictureBoxHide26for2 != pictureBoxSelected)
+                                pictureBoxHide2.Location = new Point(X, Y);
+                            if (pictureBoxHide26for3 != pictureBoxSelected)
+                                pictureBoxHide3.Location = new Point(X, Y);
+                            /*ถ้าไพ่ที่ 26 ตรงกับไพ่ที่เลือกให้ดึงไพ่ที่ 25 มาแทนที่เพื่อทำแอนิเมชั่น แต่ถ้าไม่ตรงก็ส่งไปแถวหนึ่งเลย*/
+                        }
+                        else
+                        {
+                            if (pictureBoxHide2 != pictureBoxSelected)
+                                pictureBoxHide2.Location = new Point(X, Y);
+                            if (pictureBoxHide3 != pictureBoxSelected)
+                                pictureBoxHide3.Location = new Point(X, Y);
+                        }
+                    }
+                    else //ไพ่ที่ 26
+                    {
+                        if (pictureBoxHide3 == pictureBoxSelected) //ถ้าไพ่ที่ 26 แถว 3 ตรง ให้ใช้ไพ่ที่ 25 แถว 3 แทน
+                        {
+                            string pictureBoxName = "pictureBox" + 77;
+                            PictureBox pictureBoxHide25for3 = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+                            if (pictureBoxHide25for3 != null)
+                            {
+                                int X25for3 = pictureBoxHide25for3.Location.X;
+                                int Y25for3 = pictureBoxHide25for3.Location.Y;
+                                await mangePositionY3(pictureBoxHide25for3, X25for3, Y25for3, Y, stepY);
+                                await mangePositionY2(pictureBoxHide2, X2, Y2, Y, stepY);
+                            }
+                        }
+                        else if (pictureBoxHide2 == pictureBoxSelected) //ถ้าไพ่ที่ 26 แถว 2 ตรง ให้ใช้ไพ่ที่ 25 แถว 2 แทน
+                        {
+                            string pictureBoxName = "pictureBox" + 51;
+                            PictureBox pictureBoxHide25for2 = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+                            if (pictureBoxHide25for2 != null)
+                            {
+                                int X25for2 = pictureBoxHide25for2.Location.X;
+                                int Y25for2 = pictureBoxHide25for2.Location.Y;
+                                await mangePositionY3(pictureBoxHide3, X3, Y3, Y, stepY);
+                                await mangePositionY2(pictureBoxHide25for2, X25for2, Y25for2, Y, stepY);
+                            }
+                        }
+                        else
+                        {
+                            await mangePositionY3(pictureBoxHide3, X3, Y3, Y, stepY);
+                            await mangePositionY2(pictureBoxHide2, X2, Y2, Y, stepY);
+                        }
+                    }
+                }
+                else
+                    Message.messageError();
+            }
+        }
+
+        private async Task tarotHide(PictureBox pictureBoxSelected)
+        {
             for (int i = 1; i <= 78; i++)
             {
-                dataforShow = tarotSelection.selection[i - 1];
-                if (!dataforShow) //ไพ่ที่ไม่ได้เลือก จัดการซ่อนทั้งหมด
+                string pictureBoxName = "pictureBox" + i; //แถวหนึ่ง
+                PictureBox pictureBoxHide = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+                if (pictureBoxHide != null)
                 {
-                    string pictureBoxName = "pictureBox" + i;
-                    PictureBox pictureBoxHide = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
-                    if (pictureBoxHide != null)
+                    if (pictureBoxHide != pictureBoxSelected)
                         pictureBoxHide.Hide();
                 }
             }
         }
-
-        private async Task selectedConfirmMotion(PictureBox pictureBox, int index, int X, int Y)
+        private async Task manageSelected(PictureBox pictureBoxSelected,int index)
         {
-            checkSelectedQuantity();
-            int positionX = 925 - (37 * selectedQuantity - 1);
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            string path;
+
+            pictureBoxSelected.Location = new Point(310, 100); //ส่งไพ่ที่เลือกเอาไว้ไปตรงกลางหน้าโปรแกรม
+            //ขยายขนาดรูปภาพ
+            pictureBoxSelected.Size = new Size(400, 600);
+            await Task.Delay(10);
+
+            path = Path.Combine(Application.StartupPath, Tarot.TarotData[index][0].ToLower().Replace(" ", "-") + ".png");
+            pictureBoxSelected.SizeMode = PictureBoxSizeMode.StretchImage; //ให้รูปเต็มพอดีกับการ์ด
+            pictureBoxSelected.Image = Image.FromFile(path); //ให้มีขอบลายของไพ่อยู่
+
+            textHead.Text = textInfo.ToTitleCase(Tarot.TarotData[index][0].Replace('-', ' '));
+            textHead.Location = new Point(310,710); //ให้อยู่ด้านล่างรูปตรงกึ่งกลาง
+            textHead.Size = new Size(400, 25);
+            textHead.TextAlign = ContentAlignment.MiddleCenter;
+            textHead.Show();
+
+            btnOpenCard.Show();
+            btnOpenCard.Location = new Point(400, 40);
+
+            btnOpenCard.Click += (sender, e) => openCard(pictureBoxSelected,index);
+        }
+
+        private void openCard(PictureBox pictureBoxSelected, int index)
+        {
+            pictureBoxSelected.Location = new Point(10, 100);
+            textHead.Size = new Size(600, 150);
+            textHead.Location = new Point(410, 100);
+            textDataTarot.Location = new Point(410, 200);
+            if (mode == "ความรัก")
+                textDataTarot.Text = Tarot.TarotData[index][1];
+            else
+                textDataTarot.Text = Tarot.TarotData[index][2];
+            textDataTarot.Size = new Size(600, 400);
+            textDataTarot.Show();
+
+            btnOpenCard.Hide();
+        }
+
+        private async Task selectedConfirmMotion(PictureBox pictureBox, int index, int X)
+        {
+            int positionX = 925, Y = 90;
             while (X <= positionX)
             {
-                X += 15;
-                pictureBox.Location = new Point(X, 90);
-                pictureBox.BringToFront();
+                X += 10;
+                pictureBox.Location = new Point(X, Y);
                 await Task.Delay(5);
             }
-            if (selectedQuantity == 10)
-                tarotHide();
+            await tarotHideX(pictureBox);
+            await tarotHideY(pictureBox);
+            await Task.Delay(5);
+            tarotHide(pictureBox);
+            await Task.Delay(5);
+            manageSelected(pictureBox, index);
 
-            originalPosition = false; //ยืนยันไพ่เรียบร้อยแล้ว ยังไม่ต้องการส่งไพ่กลับที่เดิม
+            originalPosition = false; 
+            //ยืนยันไพ่เรียบร้อยแล้ว หากเริ่มการจับไพ่ใหม่อีกครั้ง เมื่อมีการจับไพ่จะไม่มีการส่งไพ่ใบใด ๆ กลับที่เดิม
         }
 
         private async Task selectedNotConfirmYetMotion(PictureBox pictureBox, int index, int X, int Y)
@@ -318,8 +556,8 @@ namespace FortuneTelling
                 int preX = previouslySelectedData.X;
                 int preY = previouslySelectedData.Y;
                 prePictureBox.Location = new Point(preX, preY);
-                label2.Text = prePictureBox.Name;
             }
+
             prePictureBox = pictureBox;
             previouslySelectedData.X = X;
             previouslySelectedData.Y = Y;
@@ -344,37 +582,36 @@ namespace FortuneTelling
             originalPosition = true; //ตั้งค่าพร้อมส่งกลับที่เดิมหากไปกดเลือกไพ่ใบใหม่
         }
 
-        private async void tarotPositionSelection(int pictureBoxNumber, int index)
+        private async void tarotPositionSelection(PictureBox pictureBox, int index)
         {
             Boolean confirm = tarotSelection.selection[index];
             /*confirm = false คือคลิกเลือกไพ่ครั้งแรก
              confirm = true คือยืนยันการเลือกไพ่*/
-            string pictureBoxName = "pictureBox" + pictureBoxNumber;
-            PictureBox pictureBox = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
-            if (pictureBox != null)
-            {
-                int X = pictureBox.Location.X;
-                int Y = pictureBox.Location.Y;
-                if (confirm)
-                    selectedConfirmMotion(pictureBox, index, X, Y);
-                else
-                    selectedNotConfirmYetMotion(pictureBox, index, X, Y);
-            }
+
+            int X = pictureBox.Location.X;
+            int Y = pictureBox.Location.Y;
+
+            if (confirm)
+                await selectedConfirmMotion(pictureBox, index, X);
             else
-                Message.messageError();
+                await selectedNotConfirmYetMotion(pictureBox, index, X, Y);
         }
 
-        public Form1()
+        public Form()
         {
             InitializeComponent();
         }
 
+        private void mainProgram_Select(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 0)
+                settingProgram();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            labelClickStartProgram.Click += StartLoadProgram;
-            background1.Click += StartLoadProgram;
-
-            settingHideBtnShuffle(); //จัดการกับปุ่มจัดการความเร็วและข้ามอนิเมชั่นการสับไพ่
+            settingProgram();
+            settingHidePageMain();
         }
 
         private void clickTarot(object sender, EventArgs e)
@@ -384,7 +621,7 @@ namespace FortuneTelling
                 int pictureBoxNumber;
                 PictureBox pictureBox = (PictureBox)sender;
                 if (int.TryParse(pictureBox.Name.Replace("pictureBox", ""), out pictureBoxNumber))
-                    tarotPositionSelection(pictureBoxNumber, pictureBoxNumber-1); 
+                    tarotPositionSelection(pictureBox, pictureBoxNumber-1); 
                 //pictureBoxNumber-1 จาก pictureBox1 = index0 เป็นต้น
                 else
                     Message.messageError();
@@ -416,17 +653,25 @@ namespace FortuneTelling
                 }
             }
             else
+            {
+                settingShowPageMain();
                 TimerStartProgram.Dispose();
+            }
         }
 
         private void pictureBox78_Click(object sender, EventArgs e)
         {
-            if(closedMode)
-                RunTarot();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
+            if (int.TryParse(DataNumShuffle.Text, out int result))
+            {
+                if (closedMode)
+                {
+                    RunTarot(result);
+                    description.Hide();
+                    DataNumShuffle.Hide();
+                }
+            }
+            else
+                Message.messageErrorShuffle();
         }
 
         private void speedShuffleX1(object sender, EventArgs e)
@@ -439,6 +684,23 @@ namespace FortuneTelling
         private void btnPassShuffle_Click(object sender, EventArgs e)
         {
             passShuffle = true;
+        }
+
+        private void btnModeLove_Click(object sender, EventArgs e)
+        {
+            settingSelectTabpage2();
+            mode = "ความรัก";
+        }
+
+        private void btnModeDay_Click(object sender, EventArgs e)
+        {
+            settingSelectTabpage2();
+            mode = "รายวัน";
+        }
+
+        private void runAgain_Click(object sender, EventArgs e)
+        {
+            settingProgram();
         }
 
         private void speedShuffleX4(object sender, EventArgs e)

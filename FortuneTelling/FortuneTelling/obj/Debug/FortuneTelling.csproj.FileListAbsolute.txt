@@ -8,3 +8,13 @@ C:\Users\LENOVO\Desktop\GitHub\First-s_iPad_Store\fortune-telling\FortuneTelling
 C:\Users\LENOVO\Desktop\GitHub\First-s_iPad_Store\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.exe
 C:\Users\LENOVO\Desktop\GitHub\First-s_iPad_Store\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.pdb
 C:\Users\LENOVO\Desktop\GitHub\First-s_iPad_Store\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.Form.resources
+E:\fortune-telling\FortuneTelling\FortuneTelling\bin\Debug\FortuneTelling.exe.config
+E:\fortune-telling\FortuneTelling\FortuneTelling\bin\Debug\FortuneTelling.exe
+E:\fortune-telling\FortuneTelling\FortuneTelling\bin\Debug\FortuneTelling.pdb
+E:\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.csproj.AssemblyReference.cache
+E:\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.Form.resources
+E:\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.Properties.Resources.resources
+E:\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.csproj.GenerateResource.cache
+E:\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.csproj.CoreCompileInputs.cache
+E:\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.exe
+E:\fortune-telling\FortuneTelling\FortuneTelling\obj\Debug\FortuneTelling.pdb

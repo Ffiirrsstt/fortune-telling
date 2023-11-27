@@ -1,29 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Security.Policy;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
-using timerThreading = System.Threading.Timer;
+
 
 namespace FortuneTelling
 {
     public partial class Form : System.Windows.Forms.Form
     {
-        private const int speedX1Value = 20, speedX4Value = 5;
+        private const int speedX1Value = 8, speedX4Value = 2;
         private Boolean passShuffle = false;
         private Boolean cardLayout = false;
         private Boolean closedMode; //โหมดใช้ไพ่ใบที่ 78 สับไพ่และคลี่ไพ่
@@ -117,6 +105,23 @@ namespace FortuneTelling
             DataNumShuffle.Show();
             DataNumShuffle.Focus();
             tabControl1.TabPages.RemoveAt(0);
+            settingTarotSetup();
+        }
+
+        private void settingTarotSetup()
+        {
+            //Initial card setup
+            for (int i = 1; i <= 78; i++)
+            {
+                string pictureBoxName = "pictureBox" + i;
+                PictureBox pictureBox = Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+                if (pictureBox != null)
+                {
+                    pictureBox.Cursor = Cursors.Hand;
+                }
+                else
+                    Message.messageError();
+            }
         }
 
         private void cardsDestination(int start, int fromnumberAddforShuffle, int[] destination)
@@ -313,16 +318,26 @@ namespace FortuneTelling
                 if (cardLayout)
                 {
                     sort(); //คลี่ไพ่
+                    description.Text = "เลือกไพ่เพื่อรับคำทำนาย. . .";
                     cardLayout = false;
                 }
                 else
                 {
+                    //ตอนกำลังสับไพ่
+                    description.Text = "กำลังทำการสับไพ่. . . กรุณาอย่าคลิกที่ไพ่จนกว่ากระบวนการสับไพ่จะเสร็จสิ้น\nผู้ใช้งานสามารถกดปุ่มข้ามหรือกดปุ่มเพิ่มความเร็วการสับไพ่ได้";
+                    description.Location = new Point(190, 480);
+                    description.Size = new Size(600, 60);
+
                     //อนิเมชั่นสับไพ่
                     await animatedCardShuffle(new int[] { 925, 620 }, new int[] { 460, 310 }, 10, numberAddforShuffle);
                     /*460 มาจาก 925/2 แล้วปัดเป็นเลขกลม ๆ และ 310 มาจาก 620/2
                      925 และ 620 คือขนาดโดยประมาณ ที่หารสองเพื่อให้อยู่ตรงกลางหน้าโปรแกรม
                      */
                     cardLayout = true;
+                    
+                    //หลังสับไพ่เสร็จ
+                    description.Text = "กรุณาคลิกที่ไพ่. . .";
+                    description.Location = new Point(220, 220);
                 }
             }
             catch
@@ -474,7 +489,7 @@ namespace FortuneTelling
             }
         }
 
-        private async Task tarotHide(PictureBox pictureBoxSelected)
+        private void tarotHide(PictureBox pictureBoxSelected)
         {
             for (int i = 1; i <= 78; i++)
             {
@@ -492,6 +507,7 @@ namespace FortuneTelling
             TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
             string path;
 
+            description.Hide();
             pictureBoxSelected.Location = new Point(310, 100); //ส่งไพ่ที่เลือกเอาไว้ไปตรงกลางหน้าโปรแกรม
             //ขยายขนาดรูปภาพ
             pictureBoxSelected.Size = new Size(400, 600);
@@ -503,7 +519,7 @@ namespace FortuneTelling
 
             textHead.Text = textInfo.ToTitleCase(Tarot.TarotData[index][0].Replace('-', ' '));
             textHead.Location = new Point(310,710); //ให้อยู่ด้านล่างรูปตรงกึ่งกลาง
-            textHead.Size = new Size(400, 25);
+            textHead.Size = new Size(400, 40);
             textHead.TextAlign = ContentAlignment.MiddleCenter;
             textHead.Show();
 
@@ -523,6 +539,7 @@ namespace FortuneTelling
                 textDataTarot.Text = Tarot.TarotData[index][1];
             else
                 textDataTarot.Text = Tarot.TarotData[index][2];
+            textDataTarot.ForeColor = Color.White;
             textDataTarot.Size = new Size(600, 400);
             textDataTarot.Show();
 
@@ -543,7 +560,7 @@ namespace FortuneTelling
             await Task.Delay(5);
             tarotHide(pictureBox);
             await Task.Delay(5);
-            manageSelected(pictureBox, index);
+            await manageSelected(pictureBox, index);
 
             originalPosition = false; 
             //ยืนยันไพ่เรียบร้อยแล้ว หากเริ่มการจับไพ่ใหม่อีกครั้ง เมื่อมีการจับไพ่จะไม่มีการส่งไพ่ใบใด ๆ กลับที่เดิม
@@ -561,6 +578,8 @@ namespace FortuneTelling
             prePictureBox = pictureBox;
             previouslySelectedData.X = X;
             previouslySelectedData.Y = Y;
+
+            pictureBox.BringToFront();
 
             while (Y > 100)
             {
@@ -602,12 +621,6 @@ namespace FortuneTelling
             InitializeComponent();
         }
 
-        private void mainProgram_Select(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedIndex == 0)
-                settingProgram();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             settingProgram();
@@ -618,10 +631,13 @@ namespace FortuneTelling
         {
             if(sender is PictureBox)
             {
+                description.Text = "คลิกที่ไพ่อีกครั้ง เพื่อยืนยันการตัดสินใจ\nหรือหากต้องการเปลี่ยนไพ่ที่เลือกให้กดคลิกที่ไพ่ใบอื่น ๆ";
+                description.Location = new Point(190, 15);
                 int pictureBoxNumber;
                 PictureBox pictureBox = (PictureBox)sender;
+                textDataTarot.Hide();
                 if (int.TryParse(pictureBox.Name.Replace("pictureBox", ""), out pictureBoxNumber))
-                    tarotPositionSelection(pictureBox, pictureBoxNumber-1); 
+                    tarotPositionSelection(pictureBox, pictureBoxNumber-1);
                 //pictureBoxNumber-1 จาก pictureBox1 = index0 เป็นต้น
                 else
                     Message.messageError();
@@ -659,26 +675,18 @@ namespace FortuneTelling
             }
         }
 
-        private void pictureBox78_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(DataNumShuffle.Text, out int result))
-            {
-                if (closedMode)
-                {
-                    RunTarot(result);
-                    description.Hide();
-                    DataNumShuffle.Hide();
-                }
-            }
-            else
-                Message.messageErrorShuffle();
-        }
-
         private void speedShuffleX1(object sender, EventArgs e)
         {
             speedX4.Show();
             speedX1.Hide();
             speedDelayShuffle = speedX1Value;
+        }
+
+        private void speedShuffleX4(object sender, EventArgs e)
+        {
+            speedX1.Show();
+            speedX4.Hide();
+            speedDelayShuffle = speedX4Value;
         }
 
         private void btnPassShuffle_Click(object sender, EventArgs e)
@@ -698,16 +706,42 @@ namespace FortuneTelling
             mode = "รายวัน";
         }
 
-        private void runAgain_Click(object sender, EventArgs e)
+        private void DataNumShuffle_keyDown(object sender, KeyEventArgs e)
         {
-            settingProgram();
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (int.TryParse(DataNumShuffle.Text, out int result))
+                {
+                    if (result != 0)
+                    {
+                        RunTarot(result);
+                        DataNumShuffle.Hide();
+                    }
+                    else
+                        Message.messageErrorNoZero();
+                }
+                else
+                    Message.messageErrorShuffle();
+            }
         }
 
-        private void speedShuffleX4(object sender, EventArgs e)
+        private void pictureBox78_Click(object sender, EventArgs e)
         {
-            speedX1.Show();
-            speedX4.Hide();
-            speedDelayShuffle = speedX4Value;
+            if (int.TryParse(DataNumShuffle.Text, out int result))
+            {
+                if (closedMode)
+                {
+                    if (result != 0)
+                    {
+                        DataNumShuffle.Hide();
+                        RunTarot(result);
+                    }
+                    else
+                        Message.messageErrorNoZero();
+                }
+            }
+            else
+                Message.messageErrorShuffle();
         }
     }
 }

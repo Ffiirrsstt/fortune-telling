@@ -17,5 +17,10 @@ namespace FortuneTelling
         {
             MessageBox.Show("ป้อนโปรดตัวเลขสำหรับการสับไพ่. . .");
         }
+
+        public static void messageErrorNoZero()
+        {
+            MessageBox.Show("ป้อนโปรดตัวเลขที่ไม่ใช่เลข 0 สำหรับเป็นจำนวนในการสับไพ่. . .");
+        }
     }
 }

@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
             this.TimerStartProgram = new System.Windows.Forms.Timer(this.components);
             this.runTarotProgram = new System.Windows.Forms.TabPage();
+            this.description = new System.Windows.Forms.Label();
+            this.DataNumShuffle = new System.Windows.Forms.TextBox();
             this.textDataTarot = new System.Windows.Forms.Label();
             this.btnOpenCard = new System.Windows.Forms.Button();
             this.btnPassShuffle = new System.Windows.Forms.Button();
@@ -126,8 +128,6 @@
             this.background3 = new System.Windows.Forms.PictureBox();
             this.background2 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.DataNumShuffle = new System.Windows.Forms.TextBox();
-            this.description = new System.Windows.Forms.Label();
             this.runTarotProgram.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox78)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox77)).BeginInit();
@@ -222,7 +222,7 @@
             // 
             // runTarotProgram
             // 
-            this.runTarotProgram.BackColor = System.Drawing.Color.Transparent;
+            this.runTarotProgram.BackColor = System.Drawing.Color.Black;
             this.runTarotProgram.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.runTarotProgram.Controls.Add(this.description);
             this.runTarotProgram.Controls.Add(this.DataNumShuffle);
@@ -310,7 +310,7 @@
             this.runTarotProgram.Controls.Add(this.speedX4);
             this.runTarotProgram.Controls.Add(this.textHead);
             this.runTarotProgram.Controls.Add(this.speedX1);
-            this.runTarotProgram.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.runTarotProgram.ForeColor = System.Drawing.Color.Transparent;
             this.runTarotProgram.Location = new System.Drawing.Point(4, 25);
             this.runTarotProgram.Name = "runTarotProgram";
             this.runTarotProgram.Padding = new System.Windows.Forms.Padding(3);
@@ -318,21 +318,44 @@
             this.runTarotProgram.TabIndex = 1;
             this.runTarotProgram.Text = "หน้าดูดวง";
             // 
+            // description
+            // 
+            this.description.BackColor = System.Drawing.Color.Transparent;
+            this.description.Font = new System.Drawing.Font("Microsoft YaHei UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.description.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.description.Location = new System.Drawing.Point(369, 95);
+            this.description.Name = "description";
+            this.description.Size = new System.Drawing.Size(619, 91);
+            this.description.TabIndex = 87;
+            this.description.Text = "ป้อนอายุหรือเลขที่ชอบเพื่อใช้เป็นจำนวนในการสับไพ่";
+            this.description.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // DataNumShuffle
+            // 
+            this.DataNumShuffle.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.DataNumShuffle.Location = new System.Drawing.Point(512, 189);
+            this.DataNumShuffle.Multiline = true;
+            this.DataNumShuffle.Name = "DataNumShuffle";
+            this.DataNumShuffle.Size = new System.Drawing.Size(320, 73);
+            this.DataNumShuffle.TabIndex = 86;
+            this.DataNumShuffle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.DataNumShuffle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataNumShuffle_keyDown);
+            // 
             // textDataTarot
             // 
             this.textDataTarot.BackColor = System.Drawing.Color.Transparent;
             this.textDataTarot.Font = new System.Drawing.Font("Microsoft YaHei UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textDataTarot.ForeColor = System.Drawing.Color.Black;
-            this.textDataTarot.Location = new System.Drawing.Point(850, 17);
+            this.textDataTarot.Location = new System.Drawing.Point(1345, 17);
             this.textDataTarot.Name = "textDataTarot";
-            this.textDataTarot.Size = new System.Drawing.Size(505, 91);
+            this.textDataTarot.Size = new System.Drawing.Size(10, 91);
             this.textDataTarot.TabIndex = 84;
             this.textDataTarot.Text = "label2";
             this.textDataTarot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnOpenCard
             // 
-            this.btnOpenCard.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenCard.BackColor = System.Drawing.Color.White;
             this.btnOpenCard.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnOpenCard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
             this.btnOpenCard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -348,24 +371,27 @@
             // 
             // btnPassShuffle
             // 
+            this.btnPassShuffle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnPassShuffle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPassShuffle.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnPassShuffle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.btnPassShuffle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.btnPassShuffle.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPassShuffle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnPassShuffle.Location = new System.Drawing.Point(92, 892);
+            this.btnPassShuffle.ForeColor = System.Drawing.Color.White;
+            this.btnPassShuffle.Location = new System.Drawing.Point(171, 892);
             this.btnPassShuffle.Name = "btnPassShuffle";
-            this.btnPassShuffle.Size = new System.Drawing.Size(173, 61);
+            this.btnPassShuffle.Size = new System.Drawing.Size(178, 61);
             this.btnPassShuffle.TabIndex = 81;
             this.btnPassShuffle.Text = "PASS";
-            this.btnPassShuffle.UseVisualStyleBackColor = true;
+            this.btnPassShuffle.UseVisualStyleBackColor = false;
             this.btnPassShuffle.Click += new System.EventHandler(this.btnPassShuffle_Click);
             // 
             // pictureBox78
             // 
             this.pictureBox78.BackgroundImage = global::FortuneTelling.Properties.Resources.tarot1;
             this.pictureBox78.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox78.Location = new System.Drawing.Point(1230, 757);
+            this.pictureBox78.Location = new System.Drawing.Point(1230, 748);
             this.pictureBox78.Name = "pictureBox78";
             this.pictureBox78.Size = new System.Drawing.Size(123, 196);
             this.pictureBox78.TabIndex = 77;
@@ -1144,16 +1170,17 @@
             // 
             // speedX4
             // 
-            this.speedX4.BackColor = System.Drawing.Color.Transparent;
+            this.speedX4.BackColor = System.Drawing.Color.Gainsboro;
+            this.speedX4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.speedX4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.speedX4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.speedX4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.speedX4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.speedX4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.speedX4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.speedX4.Location = new System.Drawing.Point(16, 892);
+            this.speedX4.Location = new System.Drawing.Point(92, 892);
             this.speedX4.Name = "speedX4";
-            this.speedX4.Size = new System.Drawing.Size(70, 61);
+            this.speedX4.Size = new System.Drawing.Size(73, 61);
             this.speedX4.TabIndex = 79;
             this.speedX4.Text = "X4";
             this.speedX4.UseVisualStyleBackColor = false;
@@ -1170,12 +1197,14 @@
             // 
             // speedX1
             // 
-            this.speedX1.BackColor = System.Drawing.Color.Transparent;
+            this.speedX1.BackColor = System.Drawing.Color.Gainsboro;
+            this.speedX1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.speedX1.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.speedX1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.speedX1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.speedX1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.speedX1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.speedX1.ForeColor = System.Drawing.Color.Black;
             this.speedX1.Location = new System.Drawing.Point(16, 892);
             this.speedX1.Name = "speedX1";
             this.speedX1.Size = new System.Drawing.Size(70, 61);
@@ -1208,6 +1237,7 @@
             // 
             this.btnModeDay.BackgroundImage = global::FortuneTelling.Properties.Resources.StartProgram1;
             this.btnModeDay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnModeDay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnModeDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnModeDay.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnModeDay.Location = new System.Drawing.Point(940, 652);
@@ -1222,6 +1252,7 @@
             // 
             this.btnModeLove.BackgroundImage = global::FortuneTelling.Properties.Resources.StartProgram1;
             this.btnModeLove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnModeLove.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnModeLove.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnModeLove.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnModeLove.Location = new System.Drawing.Point(678, 229);
@@ -1300,33 +1331,12 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1369, 997);
             this.tabControl1.TabIndex = 2;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.mainProgram_Select);
-            // 
-            // DataNumShuffle
-            // 
-            this.DataNumShuffle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.DataNumShuffle.Location = new System.Drawing.Point(512, 189);
-            this.DataNumShuffle.Multiline = true;
-            this.DataNumShuffle.Name = "DataNumShuffle";
-            this.DataNumShuffle.Size = new System.Drawing.Size(320, 73);
-            this.DataNumShuffle.TabIndex = 86;
-            // 
-            // description
-            // 
-            this.description.BackColor = System.Drawing.Color.Transparent;
-            this.description.Font = new System.Drawing.Font("Microsoft YaHei UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.description.ForeColor = System.Drawing.Color.Black;
-            this.description.Location = new System.Drawing.Point(439, 95);
-            this.description.Name = "description";
-            this.description.Size = new System.Drawing.Size(455, 91);
-            this.description.TabIndex = 87;
-            this.description.Text = "ป้อนอายุหรือเลขที่ชอบเพื่อใช้เป็นจำนวนในการสับไพ่";
-            this.description.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Gray;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1397, 1062);
             this.Controls.Add(this.tabControl1);

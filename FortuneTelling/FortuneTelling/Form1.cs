@@ -658,6 +658,7 @@ namespace FortuneTelling
                 int pictureBoxNumber;
                 PictureBox pictureBox = (PictureBox)sender;
                 textDataTarot.Hide();
+                textHead.Hide();
                 if (int.TryParse(pictureBox.Name.Replace("pictureBox", ""), out pictureBoxNumber))
                     tarotPositionSelection(pictureBox, pictureBoxNumber-1);
                 //pictureBoxNumber-1 จาก pictureBox1 = index0 เป็นต้น

@@ -15,7 +15,7 @@ namespace FortuneTelling
 
         public static void messageErrorShuffle()
         {
-            MessageBox.Show("ป้อนโปรดตัวเลขสำหรับการสับไพ่. . .");
+            MessageBox.Show("ป้อนโปรดตัวเลขจำนวนเต็มสำหรับการสับไพ่. . .");
         }
 
         public static void messageErrorNoZero()

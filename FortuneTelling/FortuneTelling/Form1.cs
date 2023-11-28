@@ -26,6 +26,28 @@ namespace FortuneTelling
         private PictureBox prePictureBox;
 
 
+        private void settingRunTarotforEnterORClick()
+        {
+            if (int.TryParse(DataNumShuffle.Text, out int result))
+            {
+                if (result != 0)
+                {
+                    RunTarot(result);
+                    DataNumShuffle.Hide();
+                }
+                else
+                {
+                    Message.messageErrorNoZero();
+                    DataNumShuffle.Clear();
+                }
+            }
+            else
+            {
+                Message.messageErrorShuffle();
+                DataNumShuffle.Clear();
+            }
+        }
+
         private void settingShowBtnShuffle()
         {
             if (speedDelayShuffle == speedX1Value) //ความเร็วหนึ่งเท่าให้แสดงปุ่มให้กดเพื่อปรับเป็นความเร็วสี่เท่า
@@ -710,38 +732,14 @@ namespace FortuneTelling
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (int.TryParse(DataNumShuffle.Text, out int result))
-                {
-                    if (result != 0)
-                    {
-                        RunTarot(result);
-                        DataNumShuffle.Hide();
-                    }
-                    else
-                        Message.messageErrorNoZero();
-                }
-                else
-                    Message.messageErrorShuffle();
+                settingRunTarotforEnterORClick();
             }
         }
 
         private void pictureBox78_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(DataNumShuffle.Text, out int result))
-            {
-                if (closedMode)
-                {
-                    if (result != 0)
-                    {
-                        DataNumShuffle.Hide();
-                        RunTarot(result);
-                    }
-                    else
-                        Message.messageErrorNoZero();
-                }
-            }
-            else
-                Message.messageErrorShuffle();
+            if (closedMode)
+                settingRunTarotforEnterORClick();
         }
     }
 }
